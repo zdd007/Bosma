@@ -9,13 +9,6 @@ import io
 
 class CustomAirtestCase(AirtestCase):
     def setUp(self):
-        print("custom setup")
-        # add var/function/class/.. to globals
-        # self.scope["hunter"] = "i am hunter"
-        # self.scope["add"] = lambda x: x+1
-
-        # exec setup script
-        # self.exec_other_script("setup.owl")
         super(CustomAirtestCase, self).setUp()
 
     def tearDown(self):
@@ -24,7 +17,7 @@ class CustomAirtestCase(AirtestCase):
         # self.exec_other_script("teardown.owl")
         super(CustomAirtestCase, self).setUp()
 
-    def run_air(self, root_dir='F:\\Bosma\\测试集', device=['1f4af0c5']):
+    def run_air(self, root_dir='F:\\Bosma\\测试集', device=['Android://127.0.0.1:5037/850ABM6P5AL7']):
         # 聚合结果
         results = []
         # 获取所有用例集
@@ -64,9 +57,9 @@ class CustomAirtestCase(AirtestCase):
                     result["result"] = rpt.test_result
                     results.append(result)
         # 生成聚合报告
-        env = jinja2.Environment(loader=jinja2.FileSystemLoader(root_dir), extensions=(), autoescape=True)
-        template = env.get_template("summary_template.html", root_dir)
-        html = template.render({"results": results})
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(root_dir), extensions=(), autoescape=True)# 创建一个包加载器对象
+        template = env.get_template("summary_template.html", root_dir)#获取一个模板文件
+        html = template.render({"results": results})#渲染
         output_file = os.path.join(root_dir, "summary.html")
         with io.open(output_file, 'w', encoding="utf-8") as f:
             f.write(html)
@@ -75,5 +68,5 @@ class CustomAirtestCase(AirtestCase):
 
 if __name__ == '__main__':
     test = CustomAirtestCase()
-    device = ['1f4af0c5']
+    device = ['Android://127.0.0.1:5037/850ABM6P5AL7']
     test.run_air('F:\\Bosma\\测试集', device)
