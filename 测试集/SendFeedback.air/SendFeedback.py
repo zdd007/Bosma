@@ -2,6 +2,9 @@
 __author__ = "zhongdd"
 
 from airtest.core.api import *
+from airtest.core.api import using
+using("commomLogin.air")
+from commomLogin import commom_login
 
 auto_setup(__file__)
 
@@ -12,11 +15,6 @@ stop_app("com.bosma.smarthome")
 start_app("com.bosma.smarthome")
 sleep(5)
 
-def login():
-    sleep(5)
-    poco("com.bosma.smarthome:id/et_account").set_text("1451953028@qq.com")
-    poco("com.bosma.smarthome:id/et_pwd").set_text("zdd123456")
-    poco("com.bosma.smarthome:id/btn_login").click()
  
 def find_page():
     poco("转到上一层级").click()
@@ -48,7 +46,7 @@ if poco(text="博冠智能").exists():
     
 #如果还没登录，先执行登录，再发送反馈
 else:
-    login()
+    commom_login()
     sleep(2)
     find_page()
     sleep(2)

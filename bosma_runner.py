@@ -17,7 +17,7 @@ class CustomAirtestCase(AirtestCase):
         # self.exec_other_script("teardown.owl")
         super(CustomAirtestCase, self).setUp()
 
-    def run_air(self, root_dir='F:\\Bosma\\测试集', device=['Android://127.0.0.1:5037/850ABM6P5AL7']):
+    def run_air(self, root_dir='F:\\Bosma\\测试集', device=['Android://127.0.0.1:5037/84a6e6b0']):
         # 聚合结果
         results = []
         # 获取所有用例集
@@ -43,7 +43,7 @@ class CustomAirtestCase(AirtestCase):
                 else:
                     os.makedirs(log)
                     print(str(log) + 'is created')
-                output_file = log + '\\' + 'log.html'
+                output_file1 = log + '\\' + 'log.html'
                 args = Namespace(device=device, log=log, recording=None, script=script)
                 try:
                     run_script(args, AirtestCase)
@@ -51,15 +51,15 @@ class CustomAirtestCase(AirtestCase):
                     pass
                 finally:
                     rpt = report.LogToHtml(script, log)
-                    rpt.report("log_template.html", output_file=output_file)
+                    rpt.report("log_template.html", output_file=output_file1)
                     result = {}
                     result["name"] = airName.replace('.air', '')
                     result["result"] = rpt.test_result
                     results.append(result)
         # 生成聚合报告
-        env = jinja2.Environment(loader=jinja2.FileSystemLoader(root_dir), extensions=(), autoescape=True)# 创建一个包加载器对象
-        template = env.get_template("summary_template.html", root_dir)#获取一个模板文件
-        html = template.render({"results": results})#渲染
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader(root_dir), extensions=(), autoescape=True)
+        template = env.get_template("summary_template.html", root_dir)
+        html = template.render({"results": results})
         output_file = os.path.join(root_dir, "summary.html")
         with io.open(output_file, 'w', encoding="utf-8") as f:
             f.write(html)
@@ -68,5 +68,5 @@ class CustomAirtestCase(AirtestCase):
 
 if __name__ == '__main__':
     test = CustomAirtestCase()
-    device = ['Android://127.0.0.1:5037/850ABM6P5AL7']
+    device = ['Android://127.0.0.1:5037/84a6e6b0']
     test.run_air('F:\\Bosma\\测试集', device)

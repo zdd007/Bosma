@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Airtest脚本测试结果汇总</title>
+   <!--<link href="css/style.css" rel="stylesheet" type="text/css"/>-->
+    <style>
+
+    .fail {
+            color: red;
+			width: 7em;
+			text-align: center;
+        }
+        .success {
+            color: black;
+			width: 7em;
+			text-align: center;
+        }
+		.details-col-elapsed {
+			width: 7em;
+			text-align: center;
+		}
+		.details-col-msg {
+			width: 7em;
+			text-align: center;
+			background-color：#000000;
+		}
+		h2,.details-col-msg {
+            background-color：#000000;
+            background-size: 200% 100%;
+            animation: bganimate 5s infinite linear;
+            font-size: 30px;
+        }
+        .container{
+        position: absolute;
+        left: 25%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+<div><h2>Airtest脚本测试结果报告</h2></div>
+
+    <table width="800" border="thin" cellspacing="0" cellpadding="0">
+        <tr  width="600">
+            <th width="200" class='details-col-msg'>用例名称</th>
+            <th width="100" class='details-col-msg'>执行结果</th>
+        </tr>
+        {% for r in results %}
+        <tr width="600">
+            <td class='details-col-elapsed'><a href="log/{{r.name}}/log.html" target="view_window">{{r.name}}</a></td>
+            <td class="{{'success' if r.result else 'fail'}}">{{'success' if r.result else 'fail'}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

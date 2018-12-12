@@ -2,6 +2,9 @@
 __author__ = "zhongdd"
 
 from airtest.core.api import *
+from airtest.core.api import using
+using("commomLogin.air")
+from commomLogin import commom_login
 
 auto_setup(__file__)
 
@@ -12,12 +15,6 @@ stop_app("com.bosma.smarthome")
 sleep(2)
 start_app("com.bosma.smarthome")
 sleep(5)
-
-def login():
-    sleep(2)
-    poco("com.bosma.smarthome:id/et_account").set_text("1451953028@qq.com")
-    poco("com.bosma.smarthome:id/et_pwd").set_text("zdd123456")
-    poco("com.bosma.smarthome:id/btn_login").click()
 
 #如果已经登录，执行格式化SDCard操作
 if poco(text="博冠智能").exists():
@@ -36,7 +33,7 @@ if poco(text="博冠智能").exists():
     
 #如果还没登录，先执行登录，再执行格式化SDCard操作
 else:
-    login()
+    commom_login()
     poco("com.bosma.smarthome:id/fl_mainblock_livevideo").click()  
     sleep(3)
     if exists(Template(r"tpl1541051036321.png", record_pos=(0.424, -0.61), resolution=(1080, 1920))):

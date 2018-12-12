@@ -1,0 +1,34 @@
+.fail {
+            color: red;
+			width: 7em;
+			text-align: center;
+        }
+        .success {
+            color: green;
+			width: 7em;
+			text-align: center;
+        }
+		.details-col-elapsed {
+			width: 7em;
+			text-align: center;
+		}
+		.details-col-msg {
+			width: 7em;
+			text-align: center;
+			background-color:#ccc;
+		}
+		h2,.details-col-msg {
+            -webkit-mask-image: linear-gradient(to right, red, orange, yellow, green, cyan, blue, purple);
+            background-image: linear-gradient(to right, red, orange, yellow, green, yellow, orange, red, orange, yellow, green, yellow, orange, red);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 100%;
+            animation: bganimate 5s infinite linear;
+            font-size: 30px;
+        }
+        .container{
+        position: absolute;
+        left: 25%;
+        <!--top: 50%-->
+        }

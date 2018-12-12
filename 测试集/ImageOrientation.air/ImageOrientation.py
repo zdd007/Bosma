@@ -2,6 +2,9 @@
 __author__ = "zhongdd"
 
 from airtest.core.api import *
+from airtest.core.api import using
+using("commomLogin.air")
+from commomLogin import commom_login
 
 auto_setup(__file__)
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
@@ -11,12 +14,6 @@ stop_app("com.bosma.smarthome")
 sleep(2)
 start_app("com.bosma.smarthome")
 sleep(5)
-
-def login():
-    sleep(2)
-    poco("com.bosma.smarthome:id/et_account").set_text("1451953028@qq.com")
-    poco("com.bosma.smarthome:id/et_pwd").set_text("zdd123456")
-    poco("com.bosma.smarthome:id/btn_login").click()
    
 #如果已经登录，先退出登录，再进入忘记密码页面
 if poco(text="博冠智能").exists():
@@ -53,7 +50,7 @@ if poco(text="博冠智能").exists():
       
 #如果没有登录，先进行登录
 else:
-    login()
+    commom_login()
     sleep(1)
     poco("com.bosma.smarthome:id/fl_mainblock_livevideo").click()  
     sleep(1)

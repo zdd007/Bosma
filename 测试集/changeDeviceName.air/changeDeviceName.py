@@ -2,6 +2,9 @@
 __author__ = "zhongdd"
 
 from airtest.core.api import *
+from airtest.core.api import using
+using("commomLogin.air")
+from commomLogin import commom_login
 
 auto_setup(__file__)
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
@@ -12,12 +15,7 @@ sleep(2)
 start_app("com.bosma.smarthome")
 sleep(5)
 
-def login():
-    sleep(3)
-    poco("com.bosma.smarthome:id/et_account").set_text("1451953028@qq.com")
-    poco("com.bosma.smarthome:id/et_pwd").set_text("zdd123456")
-    poco("com.bosma.smarthome:id/btn_login").click()
-    
+   
 def changeDeviceNanme():
     sleep(2)
     #进入设备设备页面
@@ -28,6 +26,11 @@ def changeDeviceNanme():
     poco("com.bosma.smarthome:id/et_devname_input").set_text("aaaa")
     #返回上一层进行保存
     poco("转到上一层级").click()
+    #返回到首页进行刷新
+    poco("转到上一层级").click()
+    poco("转到上一层级").click()
+    poco.swipe([100/1920,300/1080],[100/1920,900/1080])
+    sleep(3)
     
 #如果已经登录，执行修改设备名称操作
 if poco(text="博冠智能").exists():
@@ -37,7 +40,7 @@ if poco(text="博冠智能").exists():
     
     if exists(Template(r"tpl1541040369573.png", record_pos=(0.424, -0.619), resolution=(1080, 1920))):
         changeDeviceNanme() 
-        poco("com.bosma.smarthome:id/btnSingle").click()
+        poco("com.bosma.smarthome:id/fl_mainblock_livevideo").click()
         sleep(2)
         assert_exists(Template(r"tpl1542351090758.png", record_pos=(-0.094, -0.589), resolution=(1080, 1920)),"修改成功")
     else:
@@ -47,13 +50,12 @@ if poco(text="博冠智能").exists():
     
 #如果还没登录，先执行登录
 else:
-    login()
+    commom_login()
     poco("com.bosma.smarthome:id/fl_mainblock_livevideo").click() 
     if exists(Template(r"tpl1541040369573.png", record_pos=(0.424, -0.619), resolution=(1080, 1920))):
 
         changeDeviceNanme() 
-        #如果有设备，就进行设备列表里的第一个设备的修改名称
-        poco("com.bosma.smarthome:id/btnSingle").click()
+        poco("com.bosma.smarthome:id/fl_mainblock_livevideo").click()
         sleep(2)
         assert_exists(Template(r"tpl1542351090758.png", record_pos=(-0.094, -0.589), resolution=(1080, 1920)),"修改成功")
 
